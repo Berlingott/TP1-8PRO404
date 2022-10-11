@@ -70,6 +70,7 @@ https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 .idea/**/aws.xml
 
 # Generated files
+.idea/
 .idea/**/contentModel.xml
 
 # Sensitive or high-churn files
@@ -623,3 +624,5 @@ FodyWeavers.xsd
 # End of 
 https://www.toptal.com/developers/gitignore/api/windows,macos,linux,pycharm,visualstudio,visualstudiocode
 
+# fichiers générés
+*.xlsx
