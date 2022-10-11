@@ -72,6 +72,83 @@ job_dictionary = {"Data Scientist": "DATA SCIENCE",
                   "3D Computer Vision Researcher": "DATA ARCHITECTURE"}
 mods['job_category'] = mods['job_title'].map(job_dictionary)
 
-# Fichier exel mods garder à la fin du code pour qu'il enregistre toute les mods
+# Nouvelles colonnes pour la location des entreprises/employé par continents
+continent_dictionary = {"AE": "Asia",
+                        "AL": "Europe",
+                        "AR": "South America",
+                        "AS": "Oceania",
+                        "AT": "Europe",
+                        "AU": "Oceania",
+                        "AX": "Europe",
+                        "BE": "Europe",
+                        "BG": "Europe",
+                        "BO": "South America",
+                        "BR": "South America",
+                        "CA": "North America",
+                        "CH": "Europe",
+                        "CL": "South America",
+                        "CN": "Asia",
+                        "CO": "South America",
+                        "CZ": "Europe",
+                        "DE": "Europe",
+                        "DK": "Europe",
+                        "DO": "North America",
+                        "DZ": "Africa",
+                        "EE": "Europe",
+                        "EG": "Africa",
+                        "ES": "Europe",
+                        "FI": "Europe",
+                        "FR": "Europe",
+                        "GB": "Europe",
+                        "GR": "Europe",
+                        "HK": "Asia",
+                        "HN": "North America",
+                        "HR": "Europe",
+                        "HU": "Europe",
+                        "ID": "Asia",
+                        "IE": "Europe",
+                        "IN": "Asia",
+                        "IQ": "Asia",
+                        "IR": "Asia",
+                        "IT": "Europe",
+                        "JE": "Europe",
+                        "JP": "Asia",
+                        "KE": "Africa",
+                        "LU": "Europe",
+                        "MD": "Europe",
+                        "MT": "Europe",
+                        "MX": "North America",
+                        "MY": "Asia",
+                        "NG": "Nigeria",
+                        "NL": "Europe",
+                        "NZ": "Oceania",
+                        "PH": "Asia",
+                        "PK": "Asia",
+                        "PL": "Europe",
+                        "PM": "North America",
+                        "PR": "North America",
+                        "PT": "Europe",
+                        "RO": "Europe",
+                        "RS": "Europe",
+                        "RU": "Europe",
+                        "SG": "Singapore",
+                        "SI": "Europe",
+                        "TH": "Asia",
+                        "TN": "Africa",
+                        "TR": "Asia",
+                        "UA": "Europe",
+                        "US": "North America",
+                        "VN": "Asia"}
+mods['employee_continent'] = mods['employee_residence'].map(continent_dictionary)
+mods['company_continent'] = mods['company_location'].map(continent_dictionary)
+
+
+# Fichier excel mods. Conserver à la fin du code pour qu'il enregistre toute les mods
 mods.to_excel("mods.xlsx")
+
+# Compte des valeurs des nouvelles colonnes
 print(mods['job_category'].value_counts())
+print()
+print(mods['employee_continent'].value_counts())
+print()
+print(mods['company_continent'].value_counts())
