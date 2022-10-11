@@ -143,8 +143,9 @@ mods['employee_continent'] = mods['employee_residence'].map(continent_dictionary
 mods['company_continent'] = mods['company_location'].map(continent_dictionary)
 
 # Filtre de données aberrantes.
+filter_max = (mods.salary_in_usd.mean() + 3*mods.salary_in_usd.std())
 for x in mods.index:
-    if mods.loc[x, 'salary_in_usd'] > (mods.salary_in_usd.mean() + 3*mods.salary_in_usd.std()):
+    if mods.loc[x, 'salary_in_usd'] > filter_max:
         mods.drop(x, inplace=True)
 
 for x in mods.index:
