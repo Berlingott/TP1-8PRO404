@@ -142,6 +142,14 @@ continent_dictionary = {"AE": "Asia",
 mods['employee_continent'] = mods['employee_residence'].map(continent_dictionary)
 mods['company_continent'] = mods['company_location'].map(continent_dictionary)
 
+# Filtre de données aberrantes.
+for x in mods.index:
+    if mods.loc[x, 'salary_in_usd'] > (mods.salary_in_usd.mean() + 3*mods.salary_in_usd.std()):
+        mods.drop(x, inplace=True)
+
+for x in mods.index:
+    if mods.loc[x, 'salary_in_usd'] < 20000:
+        mods.drop(x, inplace=True)
 
 # Fichier excel mods. Conserver à la fin du code pour qu'il enregistre toute les mods
 mods.to_excel("mods.xlsx")
