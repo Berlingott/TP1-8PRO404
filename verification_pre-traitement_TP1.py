@@ -160,3 +160,13 @@ print()
 print(mods['employee_continent'].value_counts())
 print()
 print(mods['company_continent'].value_counts())
+
+#Partie tableau David
+
+fig, ax = plt.subplots(figsize=(15, 7))
+plt.subplots_adjust(bottom=0.45)
+plt.title(" Boxplot des différentes catégories de job et leurs salaires")
+sns.boxplot(x=mods['job_category'],
+            y=mods['salary_in_usd'],
+            hue=mods['company_continent'])
+plt.show()
