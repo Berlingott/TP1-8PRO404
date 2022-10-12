@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # read salaries data
-salaries = pd.read_csv("salaries.csv", header=0)
+salaries = pd.read_csv("./../salaries.csv", header=0)
 
 # affichage des 5 premières lignes
 pd.set_option('display.max_columns', None) # pour l'affichage de toutes les colonnes
@@ -56,7 +56,7 @@ print(salaries.describe())
 print()
 
 # print summary stats for dataset and import to excel
-salaries.describe().to_excel("statistic_description_salaries.xlsx")
+salaries.describe().to_excel("../statistic_description_salaries.xlsx")
 # count total NaN per column
 print("VALEURS NULLES PAR COLONNE")
 print(salaries.isnull().sum())

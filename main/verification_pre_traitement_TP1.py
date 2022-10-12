@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # read salaries data
-salaries = pd.read_csv("salaries.csv", header=0)
+salaries = pd.read_csv("../salaries.csv", header=0)
 
 # affichage des 5 premières lignes
 pd.set_option('display.max_columns', None)
@@ -152,7 +152,7 @@ for x in mods.index:
 mods.drop_duplicates(inplace=True)
 
 # Fichier excel mods. Conserver à la fin du code pour qu'il enregistre toute les mods
-mods.to_excel("mods.xlsx")
+mods.to_excel("../mods.xlsx")
 
 # Compte des valeurs des nouvelles colonnes
 print(mods['job_category'].value_counts())
@@ -161,12 +161,3 @@ print(mods['employee_continent'].value_counts())
 print()
 print(mods['company_continent'].value_counts())
 
-#Partie tableau David
-
-fig, ax = plt.subplots(figsize=(15, 7))
-plt.subplots_adjust(bottom=0.45)
-plt.title(" Boxplot des différentes catégories de job et leurs salaires")
-sns.boxplot(x=mods['job_category'],
-            y=mods['salary_in_usd'],
-            hue=mods['company_continent'])
-plt.show()
