@@ -1,6 +1,4 @@
 # import modules
-from pathlib import Path
-import sys
 from __init__ import *
 from description_données_TP1 import *
 

@@ -6,7 +6,6 @@ import seaborn as sns
 
 # read salaries data
 salaries = pd.read_csv("../salaries.csv", header=0)
-
 # affichage des 5 premières lignes
 pd.set_option('display.max_columns', None)
 # Retire la colonne salary et salary_currency
