@@ -25,4 +25,4 @@ MakeBoxPlotWithoutHue('job_category', 'salary_in_usd', 'TEST TILE', salaries)
 MakeBarWithoutHue('job_category', 'salary_in_usd', 'TEST TILE', salaries)
 MakeBarWithHue('job_category', 'salary_in_usd', 'company_continent', 'TEST TILE', salaries)
 makefacetboxplot('job_category', 'salary_in_usd', 'TEST TILE', NA, EU, Asia)
-
+piegraph('job_category', 'TEST TILE', salaries)

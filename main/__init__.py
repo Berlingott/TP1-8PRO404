@@ -60,3 +60,12 @@ def makefacetboxplot(x, y, title, NA, EU, Asia):
 
     plt.suptitle(title)
     plt.show()
+
+def piegraph(colonne, title, salaries):
+    fig, ax = plt.subplots(figsize=(10, 10))
+    plt.title(title)
+    y = salaries[colonne].value_counts(dropna=False)
+    mylabels = salaries[colonne].value_counts()
+    plt.pie(y, labels=mylabels)
+    plt.legend(salaries[colonne].value_counts().index, loc='upper left')
+    plt.show()
