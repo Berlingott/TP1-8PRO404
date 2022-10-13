@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from __init__ import *
 from description_données_TP1 import *
 
-
 salaries = pd.read_excel("../mods.xlsx", header=0)
 pd.set_option('display.max_columns', None)
 print(salaries.head())
@@ -20,9 +19,13 @@ print(salaries.info())
 print()
 
 # create grouped boxplot
-MakeBoxPlotWithHue('job_category', 'salary_in_usd', 'company_continent', 'TEST TILE', salaries)
-MakeBoxPlotWithoutHue('job_category', 'salary_in_usd', 'TEST TILE', salaries)
-MakeBarWithoutHue('job_category', 'salary_in_usd', 'TEST TILE', salaries)
-MakeBarWithHue('job_category', 'salary_in_usd', 'company_continent', 'TEST TILE', salaries)
-makefacetboxplot('job_category', 'salary_in_usd', 'TEST TILE', NA, EU, Asia)
-piegraph('job_category', 'TEST TILE', salaries)
+#MakeBoxPlotWithHue('job_category', 'salary_in_usd', 'company_continent', 'TEST TILE', salaries)
+#MakeBoxPlotWithoutHue('job_category', 'salary_in_usd', 'TEST TILE', salaries)
+#MakeBarWithoutHue('job_category', 'salary_in_usd', 'TEST TILE', salaries)
+#MakeBarWithHue('job_category', 'salary_in_usd', 'company_continent', 'TEST TILE', salaries)
+#makefacetboxplot('job_category', 'salary_in_usd', 'TEST TILE', NA, EU, Asia)
+#piegraph('job_category', 'TEST TILE', salaries)
+#MakeTableDescribeWithSalary('job_category', salaries)
+#MakeKhi2Calcul('job_category', 'salary_in_usd', salaries)
+MakeCorrtestWithSpearmanrBetweenTwoInt('remote_ratio', 'salary_in_usd', salaries, "Correlation Test")
+MakeCorrtestWithSpearmanrWithOneStringAndOneInt('job_category', 'salary_in_usd', salaries, "Correlation Test")
