@@ -151,11 +151,20 @@ mods['company_continent'] = mods['company_location'].map(continent_dictionary)
 # mods.drop_duplicates(inplace=True)
 
 # retirer les categories PT, CT et FL
-mods = mods.loc[(salaries.employment_type == "FT")]
+mods = mods.loc[(mods.employment_type == "FT")]
 print(mods['employment_type'].value_counts())
 
 # retirer la colonne employement_type
 mods.drop(columns='employment_type', inplace=True)
+
+# retrait des continents avec trop peu de donnees
+mods = mods.loc[(mods.employee_continent == "North America") |
+                (mods.employee_continent == "Europe") |
+                (mods.employee_continent == "Asia")]
+
+mods = mods.loc[(mods.company_continent == "North America") |
+                (mods.company_continent == "Europe") |
+                (mods.company_continent == "Asia")]
 
 # Fichier excel mods. Conserver à la fin du code pour qu'il enregistre toute les mods
 mods.to_excel("../mods.xlsx")
@@ -167,4 +176,5 @@ print(mods['employee_continent'].value_counts())
 print()
 print(mods['company_continent'].value_counts())
 print()
+
 
