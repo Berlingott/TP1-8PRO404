@@ -27,5 +27,7 @@ print()
 #piegraph('job_category', 'TEST TILE', salaries)
 #MakeTableDescribeWithSalary('job_category', salaries)
 #MakeKhi2Calcul('job_category', 'salary_in_usd', salaries)
+data = salaries["salary_in_usd"]
+print(shapiro(data))  #ShapiroResult(statistic=0.980989933013916, pvalue=6.602242641484679e-10)
 MakeCorrtestWithSpearmanrBetweenTwoInt('remote_ratio', 'salary_in_usd', salaries, "Correlation Test")
 MakeCorrtestWithSpearmanrWithOneStringAndOneInt('job_category', 'salary_in_usd', salaries, "Correlation Test")
