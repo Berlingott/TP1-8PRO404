@@ -72,74 +72,13 @@ job_dictionary = {"Data Scientist": "DATA SCIENCE",
 mods['job_category'] = mods['job_title'].map(job_dictionary)
 
 # Nouvelles colonnes pour la location des entreprises/employé par continents
-continent_dictionary = {"AE": "Asia",
-                        "AL": "Europe",
-                        "AR": "South America",
-                        "AS": "Oceania",
-                        "AT": "Europe",
-                        "AU": "Oceania",
-                        "AX": "Europe",
-                        "BE": "Europe",
-                        "BG": "Europe",
-                        "BO": "South America",
-                        "BR": "South America",
-                        "CA": "North America",
-                        "CH": "Europe",
-                        "CL": "South America",
-                        "CN": "Asia",
-                        "CO": "South America",
-                        "CZ": "Europe",
-                        "DE": "Europe",
-                        "DK": "Europe",
-                        "DO": "North America",
-                        "DZ": "Africa",
-                        "EE": "Europe",
-                        "EG": "Africa",
-                        "ES": "Europe",
-                        "FI": "Europe",
-                        "FR": "Europe",
-                        "GB": "Europe",
-                        "GR": "Europe",
-                        "HK": "Asia",
-                        "HN": "North America",
-                        "HR": "Europe",
-                        "HU": "Europe",
-                        "ID": "Asia",
-                        "IE": "Europe",
-                        "IN": "Asia",
-                        "IQ": "Asia",
-                        "IR": "Asia",
-                        "IT": "Europe",
-                        "JE": "Europe",
-                        "JP": "Asia",
-                        "KE": "Africa",
-                        "LU": "Europe",
-                        "MD": "Europe",
-                        "MT": "Europe",
-                        "MX": "North America",
-                        "MY": "Asia",
-                        "NG": "Africa",
-                        "NL": "Europe",
-                        "NZ": "Oceania",
-                        "PH": "Asia",
-                        "PK": "Asia",
-                        "PL": "Europe",
-                        "PM": "North America",
-                        "PR": "North America",
-                        "PT": "Europe",
-                        "RO": "Europe",
-                        "RS": "Europe",
-                        "RU": "Europe",
-                        "SG": "Asia",
-                        "SI": "Europe",
-                        "TH": "Asia",
-                        "TN": "Africa",
-                        "TR": "Asia",
-                        "UA": "Europe",
-                        "US": "North America",
-                        "VN": "Asia"}
-mods['employee_continent'] = mods['employee_residence'].map(continent_dictionary)
-mods['company_continent'] = mods['company_location'].map(continent_dictionary)
+# load data set with iso codes and continent
+countries = pd.read_csv("C:/temp/data/country_file.csv")
+# keep only relevant columns
+countries = countries[["alpha-2", "region"]]
+# add new column with region
+countries = countries.rename(columns={"alpha-2": "company_location", "region": "company_continent"})
+mods = pd.merge(mods, countries, on="company_location", how="inner")
 
 # # Filtre de données aberrantes.
 # filter_max = (mods.salary_in_usd.mean() + 3*mods.salary_in_usd.std())
