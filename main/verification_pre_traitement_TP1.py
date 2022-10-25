@@ -80,6 +80,7 @@ countries = countries[["alpha-2", "region"]]
 countries = countries.rename(columns={"alpha-2": "company_location", "region": "company_continent"})
 mods = pd.merge(mods, countries, on="company_location", how="inner")
 
+
 # # Filtre de données aberrantes.
 # filter_max = (mods.salary_in_usd.mean() + 3*mods.salary_in_usd.std())
 # for x in mods.index:
