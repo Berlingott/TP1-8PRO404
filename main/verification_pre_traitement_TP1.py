@@ -126,6 +126,6 @@ def DataCleaning():
     values = ["[0,30 000[", "[30 000, 60 000[", "[60 000, 90 000[", "[90 000, 120 000[", "[120 000, 150 000[", "[150 000, 180 000[", "[210 000, 240 000[", "[240 000, 270 000[", "[270 000, 300 000[", ">300 000"]# replace
     mods["salary_in_usd"] = np.select(conditions, values)
     # Fichier excel mods. Conserver à la fin du code pour qu'il enregistre toute les mods
-    mods.to_csv("../mods.csv")
+    mods.to_csv("mods.csv")
 
 
