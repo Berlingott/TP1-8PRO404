@@ -72,6 +72,15 @@ job_dictionary = {"Data Scientist": "DATA SCIENCE",
 mods['job_category'] = mods['job_title'].map(job_dictionary)
 
 # Nouvelles colonnes pour la location des entreprises/employé par continents
+# load data set with iso codes and continent
+countries = pd.read_csv("C:/temp/data/country_file.csv")
+# keep only relevant columns
+countries = countries[["alpha-2", "region"]]
+# add new column with region
+countries = countries.rename(columns={"alpha-2": "company_location", "region": "company_continent"})
+mods = pd.merge(mods, countries, on="company_location", how="inner")
+
+############ retirer cette partie #############
 continent_dictionary = {"AE": "Asia",
                         "AL": "Europe",
                         "AR": "South America",
@@ -140,7 +149,7 @@ continent_dictionary = {"AE": "Asia",
                         "VN": "Asia"}
 mods['employee_continent'] = mods['employee_residence'].map(continent_dictionary)
 mods['company_continent'] = mods['company_location'].map(continent_dictionary)
-
+############# fin de la section à supprimer ##############
 # # Filtre de données aberrantes.
 # filter_max = (mods.salary_in_usd.mean() + 3*mods.salary_in_usd.std())
 # for x in mods.index:
