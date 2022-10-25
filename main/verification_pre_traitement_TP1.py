@@ -101,11 +101,11 @@ def DataCleaning():
     mods.drop(columns='company_location', inplace=True)
     mods.drop(columns='job_title', inplace=True)
     # retrait des continents avec trop peu de donnees
-    mods = mods.loc[(mods.employee_continent == "North America") |
+    mods = mods.loc[(mods.employee_continent == "Americas") |
                     (mods.employee_continent == "Europe") |
                     (mods.employee_continent == "Asia")]
 
-    mods = mods.loc[(mods.company_continent == "North America") |
+    mods = mods.loc[(mods.company_continent == "Americas") |
                     (mods.company_continent == "Europe") |
                     (mods.company_continent == "Asia")]
     # group salary_in_usd in interval
