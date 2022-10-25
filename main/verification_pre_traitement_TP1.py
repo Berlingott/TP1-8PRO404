@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 def DataCleaning():
     # read salaries data
-    salaries = pd.read_csv("../salaries.csv", header=0)
+    salaries = pd.read_csv("salaries.csv", header=0)
     # affichage des 5 premières lignes
     pd.set_option('display.max_columns', None)
     # Retire la colonne salary et salary_currency
@@ -73,8 +73,8 @@ def DataCleaning():
 
     # Nouvelles colonnes pour la location des entreprises/employé par continents
     # load data set with iso codes and continent
-    countries = pd.read_csv("./../country_file.csv", header=0)
-    # keep only relevant columns
+    countries = pd.read_csv("country_file.csv", header=0)
+    # keep only relevant columns "C:\\Users\\vince\\PycharmProjects\\TP1-8PRO404\\salaries.csv"
     countries = countries[["alpha-2", "region"]]
     # add new column with region
     countries = countries.rename(columns={"alpha-2": "company_location", "region": "company_continent"})

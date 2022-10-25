@@ -12,10 +12,10 @@ from main import verification_pre_traitement_TP1
 ########################################################################################################################
 
 #Call the data cleaning method
-verification_pre_traitement_TP1()
+verification_pre_traitement_TP1.DataCleaning()
 
 # Define the pathname of the datset
-dataset_pathname = "D:\\Live coding 1\\mods.csv"
+dataset_pathname = "mods.csv"
 
 # Define the target variable
 target_variable = "salary_in_usd"
