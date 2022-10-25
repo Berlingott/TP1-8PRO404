@@ -108,7 +108,24 @@ mods = mods.loc[(mods.employee_continent == "North America") |
 mods = mods.loc[(mods.company_continent == "North America") |
                 (mods.company_continent == "Europe") |
                 (mods.company_continent == "Asia")]
-
+# group salary_in_usd in interval
+# set condition
+conditions = [
+    (mods['salary_in_usd'] < 30000),
+    (mods['salary_in_usd'] >= 30000) & (mods['salary_in_usd'] < 60000),
+    (mods['salary_in_usd'] >= 60000) & (mods['salary_in_usd'] < 90000),
+    (mods['salary_in_usd'] >= 90000) & (mods['salary_in_usd'] < 120000),
+    (mods['salary_in_usd'] >= 120000) & (mods['salary_in_usd'] < 150000),
+    (mods['salary_in_usd'] >= 150000) & (mods['salary_in_usd'] < 180000),
+    (mods['salary_in_usd'] >= 180000) & (mods['salary_in_usd'] < 210000),
+    (mods['salary_in_usd'] >= 210000) & (mods['salary_in_usd'] < 240000),
+    (mods['salary_in_usd'] >= 270000) & (mods['salary_in_usd'] < 300000),
+    (mods['salary_in_usd'] >= 300000)
+]
+# set values
+values = ["[0,30 000]", "]30 000, 60 000]", "]60 000, 90 000]", "]90 000, 120 000]", "]120 000, 150 000]", "]150 000, 180 000]", "]210 000, 240 000]", "]240 000, 270 000]", "]270 000, 300 000]", ">300 000"]
+# replace
+mods["salary_in_usd"] = np.select(conditions, values)
 # Fichier excel mods. Conserver à la fin du code pour qu'il enregistre toute les mods
 mods.to_excel("../mods.xlsx")
 
