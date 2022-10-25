@@ -73,13 +73,14 @@ mods['job_category'] = mods['job_title'].map(job_dictionary)
 
 # Nouvelles colonnes pour la location des entreprises/employé par continents
 # load data set with iso codes and continent
-countries = pd.read_csv("C:/temp/data/country_file.csv")
+countries = pd.read_csv("./../country_file.csv", header=0)
 # keep only relevant columns
 countries = countries[["alpha-2", "region"]]
 # add new column with region
 countries = countries.rename(columns={"alpha-2": "company_location", "region": "company_continent"})
 mods = pd.merge(mods, countries, on="company_location", how="inner")
-
+countries = countries.rename(columns={"company_location": "employee_residence", "company_continent": "employee_continent"})
+mods = pd.merge(mods, countries, on="employee_residence", how="inner")
 
 # # Filtre de données aberrantes.
 # filter_max = (mods.salary_in_usd.mean() + 3*mods.salary_in_usd.std())
@@ -94,9 +95,11 @@ mods = pd.merge(mods, countries, on="company_location", how="inner")
 mods = mods.loc[(mods.employment_type == "FT")]
 print(mods['employment_type'].value_counts())
 
-# retirer la colonne employement_type
+# retirer des colones inutiles
 mods.drop(columns='employment_type', inplace=True)
-
+mods.drop(columns='employee_residence', inplace=True)
+mods.drop(columns='company_location', inplace=True)
+mods.drop(columns='job_title', inplace=True)
 # retrait des continents avec trop peu de donnees
 mods = mods.loc[(mods.employee_continent == "North America") |
                 (mods.employee_continent == "Europe") |
