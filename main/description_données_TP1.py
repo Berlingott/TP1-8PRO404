@@ -9,7 +9,7 @@ salaries = pd.read_csv("./../salaries.csv", header=0)
 
 # affichage des 5 premières lignes
 pd.set_option('display.max_columns', None) # pour l'affichage de toutes les colonnes
-print(salaries.head()) # affichage des 5 premieres lignes
+print(salaries.head()) # Print first 5 rows
 print()
 
 # get column names
@@ -18,17 +18,17 @@ for col in salaries.columns:
     print(col)
 print()
 
-# pour obtenir les dimensions du dataframe
+# Return tuple with dimensionality of the dataframe
 print("DIMENSIONS DU DATAFRAME")
 print(salaries.shape)
 print()
 
-# pour observer les types des variables
+# Return serie with the data type of each column
 print("TYPES DE VARIABLES")
 print(salaries.dtypes)
 print()
 
-# informations sur le dataframe
+# Print informations about dataframe
 print("INFORMATIONS SUR LE DATAFRAME")
 print(salaries.info())
 print()
@@ -51,6 +51,7 @@ print("remote_ratio")
 print(salaries["remote_ratio"].min(), salaries["remote_ratio"].max())       #0, 100
 print()
 
+# Print descriptive statistics
 print("SALARIES.DESCRIBE()")
 print(salaries.describe())
 print()
@@ -62,7 +63,7 @@ print("VALEURS NULLES PAR COLONNE")
 print(salaries.isnull().sum())
 print()
 
-# exploration des variables catégorielles
+# Explore categorical data 
 print("VARIABLES CATEGORIELLES")
 print(salaries['work_year'].value_counts(dropna=False))
 print()
@@ -83,26 +84,26 @@ print()
 print(salaries['company_size'].value_counts(dropna=False))
 print()
 
-# On veut créer un dataframe contenant tous les doublons selon les variables:
+# Create dataframe with all the duplicated variables
 df_dup=salaries[salaries.duplicated()]
-# affichage du nombre de doublons
+# print number fo duplicates
 print("NOMBRES DES DOUBLONS")
 print(df_dup.shape)
 print()
 
-# affichage des doublons
+# print duplicates
 print("APERÇU DES DOUBLONS")
 print(df_dup)
 print()
 
-# valeurs aberrantes
+# extreme values
 sns.boxplot(data=salaries['salary'])
-# pour que les valeurs de l'axe des y ne soient pas sous forme exponentielle
+# set y axis' values as non exponantial
 plt.ticklabel_format(style='plain', axis='y')
 plt.show()
 
 sns.boxplot(data=salaries['salary_in_usd'])
-# pour que les valeurs de l'axe des y ne soient pas sous forme exponentielle
+# set y axis' values as non exponantial
 plt.ticklabel_format(style='plain', axis='y')
 plt.show()
 
