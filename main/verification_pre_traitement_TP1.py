@@ -6,12 +6,12 @@ import seaborn as sns
 def DataCleaning():
     # read salaries data
     salaries = pd.read_csv("salaries.csv", header=0)
-    # affichage des 5 premières lignes
+    # look at first rows
     pd.set_option('display.max_columns', None)
-    # Retire la colonne salary et salary_currency
+    # Remove salary et salary_currency
     mods = salaries.drop(["salary", "salary_currency"], axis=1)
 
-    # Nouvelle colonne pour les catégories de métier
+    # New column to categorize job_title 
     job_dictionary = {"Data Scientist": "DATA SCIENCE",
                       "Research Scientist": "DATA SCIENCE",
                       "Applied Data Scientist": "DATA SCIENCE",
@@ -71,15 +71,15 @@ def DataCleaning():
                       "3D Computer Vision Researcher": "DATA ARCHITECTURE"}
     mods['job_category'] = mods['job_title'].map(job_dictionary)
 
-    # Nouvelles colonnes pour la location des entreprises/employé par continents
+    # Change company and employee location for continents
     # load data set with iso codes and continent
     countries = pd.read_csv("country_file.csv", header=0)
     # keep only relevant columns "C:\\Users\\vince\\PycharmProjects\\TP1-8PRO404\\salaries.csv"
     countries = countries[["alpha-2", "region"]]
     # add new column with region
-    countries = countries.rename(columns={"alpha-2": "company_location", "region": "company_continent"})
+    countries = countries.rename(columns={"alpha-2": "company_location", "region": "company_continent"})    # rename to uniformize datasets
     mods = pd.merge(mods, countries, on="company_location", how="inner")
-    countries = countries.rename(columns={"company_location": "employee_residence", "company_continent": "employee_continent"})
+    countries = countries.rename(columns={"company_location": "employee_residence", "company_continent": "employee_continent"}) # rename to uniformize datasets
     mods = pd.merge(mods, countries, on="employee_residence", how="inner")
 
     # # Filtre de données aberrantes.
@@ -91,16 +91,16 @@ def DataCleaning():
     #         mods.drop(x, inplace=True)
     # mods.drop_duplicates(inplace=True)
 
-    # retirer les categories PT, CT et FL
+    # Keep only full-time rows (remove PT, CT and FL)
     mods = mods.loc[(mods.employment_type == "FT")]
     print(mods['employment_type'].value_counts())
 
-    # retirer des colones inutiles
+    # Drop replaced columns
     mods.drop(columns='employment_type', inplace=True)
     mods.drop(columns='employee_residence', inplace=True)
     mods.drop(columns='company_location', inplace=True)
     mods.drop(columns='job_title', inplace=True)
-    # retrait des continents avec trop peu de donnees
+    # Keep only regions with enough data
     mods = mods.loc[(mods.employee_continent == "Americas") |
                     (mods.employee_continent == "Europe") |
                     (mods.employee_continent == "Asia")]
@@ -122,10 +122,10 @@ def DataCleaning():
         (mods['salary_in_usd'] >= 270000) & (mods['salary_in_usd'] < 300000),
         (mods['salary_in_usd'] >= 300000)
     ]
-    # set values
+    # set values used as labels
     values = ["[0,30 000[", "[30 000, 60 000[", "[60 000, 90 000[", "[90 000, 120 000[", "[120 000, 150 000[", "[150 000, 180 000[", "[210 000, 240 000[", "[240 000, 270 000[", "[270 000, 300 000[", ">300 000"]# replace
     mods["salary_in_usd"] = np.select(conditions, values)
-    # Fichier excel mods. Conserver à la fin du code pour qu'il enregistre toute les mods
+    # Save modified data as mods.csv
     mods.to_csv("mods.csv")
 
 
