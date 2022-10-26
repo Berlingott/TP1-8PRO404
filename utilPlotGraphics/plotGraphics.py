@@ -32,7 +32,10 @@ def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
     my_width = 1/len(class_id)
 
     counter = 0
-
+    # add distinctive colors
+    col_counter = 0
+    color_list = ["red", "lime", "aqua", "navy", "silver", "darkorange", "purple", "darkgreen", "yellow",
+                      "fuchsia", "saddlebrown"]
     feature_value = np.unique(my_df_dataset[column_name])
 
     print("\n\n")
@@ -66,14 +69,16 @@ def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
         # Compute the number of bars
         X = np.arange(len(tmp_percentages)) * 2
 
-        plt.bar((X - counter+(len(class_id)/10)) + counter*my_width + (my_width/2), tmp_percentages, width=my_width, alpha=0.5,
-                label=data_label, edgecolor="k")
+        plt.bar((X - counter+(len(class_id)/10)) + counter*my_width + (my_width/2), tmp_percentages, width=my_width, alpha=0.7,
+                label=data_label, edgecolor="k", color=color_list[col_counter])
         counter = counter + 0.2
+        col_counter = col_counter + 1   # switch to next color for next class id
 
-    plt.title(column_name, fontsize=10)
+    plt.title(target_variable + " by " + column_name, fontsize=10)
     plt.xticks(np.arange(feature_value.size)*2, feature_value, rotation=90)
     plt.ylabel("Percentage of people")
-    plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
+    plt.xlabel(column_name)
+    plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left", prop = {"size" : 6})
     plt.tight_layout()
     plt.show()
 
