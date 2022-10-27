@@ -81,6 +81,7 @@ def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
     plt.legend(["[0,50 000[", "[50 000, 100 000[", "[100 000, 150 000[", "[150 000, 200 000[", "[200 000, 250 000[", "[250 000, 300 000[", ">300 000"], #reorder legend labels
         bbox_to_anchor=(1.04, 1), loc="upper left", prop = {"size" : 6})    # position and resize legend
     plt.tight_layout()
+    plt.figure(figsize=(35, 25))
     plt.show()
 
 
