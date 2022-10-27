@@ -78,7 +78,8 @@ def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
     plt.xticks(np.arange(feature_value.size)*2, feature_value, rotation=90)
     plt.ylabel("Percentage of people")
     plt.xlabel(column_name)
-    plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left", prop = {"size" : 6})
+    plt.legend(["[0,50 000[", "[50 000, 100 000[", "[100 000, 150 000[", "[150 000, 200 000[", "[200 000, 250 000[", "[250 000, 300 000[", ">300 000"], #reorder legend labels
+        bbox_to_anchor=(1.04, 1), loc="upper left", prop = {"size" : 6})    # position and resize legend
     plt.tight_layout()
     plt.show()
 
