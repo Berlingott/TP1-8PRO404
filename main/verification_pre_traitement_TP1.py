@@ -111,19 +111,16 @@ def DataCleaning():
     # group salary_in_usd in interval
     # set condition
     conditions = [
-        (mods['salary_in_usd'] < 30000),
-        (mods['salary_in_usd'] >= 30000) & (mods['salary_in_usd'] < 60000),
-        (mods['salary_in_usd'] >= 60000) & (mods['salary_in_usd'] < 90000),
-        (mods['salary_in_usd'] >= 90000) & (mods['salary_in_usd'] < 120000),
-        (mods['salary_in_usd'] >= 120000) & (mods['salary_in_usd'] < 150000),
-        (mods['salary_in_usd'] >= 150000) & (mods['salary_in_usd'] < 180000),
-        (mods['salary_in_usd'] >= 180000) & (mods['salary_in_usd'] < 210000),
-        (mods['salary_in_usd'] >= 210000) & (mods['salary_in_usd'] < 240000),
-        (mods['salary_in_usd'] >= 270000) & (mods['salary_in_usd'] < 300000),
+        (mods['salary_in_usd'] < 50000),
+        (mods['salary_in_usd'] >= 50000) & (mods['salary_in_usd'] < 100000),
+        (mods['salary_in_usd'] >= 100000) & (mods['salary_in_usd'] < 150000),
+        (mods['salary_in_usd'] >= 150000) & (mods['salary_in_usd'] < 200000),
+        (mods['salary_in_usd'] >= 200000) & (mods['salary_in_usd'] < 250000),
+        (mods['salary_in_usd'] >= 250000) & (mods['salary_in_usd'] < 300000),
         (mods['salary_in_usd'] >= 300000)
     ]
     # set values used as labels
-    values = ["[0,30 000[", "[30 000, 60 000[", "[60 000, 90 000[", "[90 000, 120 000[", "[120 000, 150 000[", "[150 000, 180 000[", "[210 000, 240 000[", "[240 000, 270 000[", "[270 000, 300 000[", ">300 000"]# replace
+    values = ["[0,50 000[", "[50 000, 100 000[", "[100 000, 150 000[", "[150 000, 200 000[", "[200 000, 250 000[", "[250 000, 300 000[", ">300 000"]
     mods["salary_in_usd"] = np.select(conditions, values)
     # Save modified data as mods.csv
     mods.to_csv("mods.csv")
