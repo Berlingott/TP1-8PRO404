@@ -125,4 +125,24 @@ def DataCleaning():
     # Save modified data as mods.csv
     mods.to_csv("mods.csv")
 
+# function to plot box plots for each column 
+def dataVisualisation(my_df_dataset, target_variable):
+    # Get the list of columns
+    column_list = my_df_dataset.columns
 
+    for column_name in column_list:
+
+        if column_name != target_variable:
+            # Get the data of the column
+            column_data = my_df_dataset[column_name].values
+
+            # set category order
+            categories_ordered = [">300 000", "[250 000, 300 000[", "[200 000, 250 000[", "[150 000, 200 000[", "[100 000, 150 000[", "[50 000, 100 000[", "[0,50 000["]
+            # Get a box plot comparing target variable and every columns
+            fig = px.box(my_df_dataset, y=target_variable, x=column_data,
+                         category_orders={target_variable: categories_ordered}
+                         ).update_layout(
+                yaxis_title="Salary in US$", xaxis_title=column_name,
+                title="Distribution of " + target_variable + " by " + column_name)
+            fig.update_traces(orientation='v')  # set boxes orientation to target_variable(column_data)
+            fig.write_image(column_name + ".svg")   # save as scalable vector graphics
