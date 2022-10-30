@@ -47,7 +47,7 @@ cleanDataset.get_varaible_information(my_df_dataset)
 class_id = cleanDataset.get_target_variable_information(my_df_dataset, target_variable)
 
 # Print box plot for target_variable depending on column data
-verification_pre_traitement_TP1.dataVisualisation(my_df_dataset, target_variable)
+# verification_pre_traitement_TP1.dataVisualisation(my_df_dataset, target_variable)
 
 ########################################################################################################################
 #                                                    PLOT GRAPHICS                                                     #
