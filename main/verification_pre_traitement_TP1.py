@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 def DataCleaning():
     # read salaries data
     salaries = pd.read_csv("salaries.csv", header=0)
