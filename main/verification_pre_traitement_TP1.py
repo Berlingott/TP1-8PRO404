@@ -125,6 +125,7 @@ def DataCleaning():
     mods["salary_in_usd"] = np.select(conditions, values)
     # Save modified data as mods.csv
     mods.to_csv("mods.csv", index=False)
+    return values
 
 # function to plot box plots for each column 
 def dataVisualisation(my_df_dataset, target_variable):

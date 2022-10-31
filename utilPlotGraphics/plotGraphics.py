@@ -69,7 +69,7 @@ def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
         # Compute the number of bars
         X = np.arange(len(tmp_percentages)) * 2
 
-        plt.bar((X - counter+(len(class_id)/10)) + counter*my_width + (my_width/2), tmp_percentages, width=my_width, alpha=0.7,
+        plt.bar((X + counter-(len(class_id)/10)) + counter*my_width + (my_width/2), tmp_percentages, width=my_width, alpha=0.7,
                 label=data_label, edgecolor="k", color=color_list[col_counter])
         counter = counter + 0.2
         col_counter = col_counter + 1   # switch to next color for next class id
@@ -78,7 +78,7 @@ def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
     plt.xticks(np.arange(feature_value.size)*2, feature_value, rotation=90)
     plt.ylabel("Percentage of people")
     plt.xlabel(column_name)
-    plt.legend(["[0,50 000[", "[50 000, 100 000[", "[100 000, 150 000[", "[150 000, 200 000[", "[200 000, 250 000[", "[250 000, 300 000[", ">300 000"], #reorder legend labels
+    plt.legend(class_id, #reorder legend labels
         bbox_to_anchor=(1.04, 1), loc="upper left", prop = {"size" : 6})    # position and resize legend
     plt.tight_layout()
     plt.figure(figsize=(35, 25))

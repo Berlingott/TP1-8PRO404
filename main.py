@@ -44,7 +44,8 @@ cleanDataset.compute_instance_and_variable_number(my_df_dataset)
 cleanDataset.get_varaible_information(my_df_dataset)
 
 # Print information on the target variable
-class_id = cleanDataset.get_target_variable_information(my_df_dataset, target_variable)
+# class_id = cleanDataset.get_target_variable_information(my_df_dataset, target_variable)
+class_id = verification_pre_traitement_TP1.DataCleaning()
 
 # Print box plot for target_variable depending on column data
 # verification_pre_traitement_TP1.dataVisualisation(my_df_dataset, target_variable)
