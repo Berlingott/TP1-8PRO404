@@ -12,7 +12,7 @@ from main import verification_pre_traitement_TP1
 ########################################################################################################################
 
 #Call the data cleaning method
-verification_pre_traitement_TP1.DataCleaning()
+class_id = verification_pre_traitement_TP1.data_cleaning()
 
 # Define the pathname of the datset
 dataset_pathname = "mods.csv"
@@ -44,11 +44,10 @@ cleanDataset.compute_instance_and_variable_number(my_df_dataset)
 cleanDataset.get_varaible_information(my_df_dataset)
 
 # Print information on the target variable
-# class_id = cleanDataset.get_target_variable_information(my_df_dataset, target_variable)
-class_id = verification_pre_traitement_TP1.DataCleaning()
+cleanDataset.get_target_variable_information(my_df_dataset, target_variable, class_id)
 
 # Print box plot for target_variable depending on column data
-# verification_pre_traitement_TP1.dataVisualisation(my_df_dataset, target_variable)
+# verification_pre_traitement_TP1.data_visualisation(my_df_dataset, target_variable)
 
 ########################################################################################################################
 #                                                    PLOT GRAPHICS                                                     #

@@ -1,11 +1,9 @@
 import numpy as np
 import pandas as pd
-
 import matplotlib.pyplot as plt
 
 
 def plot_all_plots(class_id, my_df_dataset, target_variable):
-
     # Get the list of columns
     column_list = my_df_dataset.columns
 
@@ -23,19 +21,14 @@ def plot_all_plots(class_id, my_df_dataset, target_variable):
                 plot_bar_plots(class_id, my_df_dataset, column_name, target_variable)
 
 
-
-
-
-
 def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
-
-    my_width = 1/len(class_id)
+    my_width = 1 / len(class_id)
 
     counter = 0
     # add distinctive colors
     col_counter = 0
     color_list = ["red", "lime", "aqua", "navy", "silver", "darkorange", "purple", "darkgreen", "yellow",
-                      "fuchsia", "saddlebrown"]
+                  "fuchsia", "saddlebrown"]
     feature_value = np.unique(my_df_dataset[column_name])
 
     print("\n\n")
@@ -59,7 +52,8 @@ def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
 
             tmp_indices = np.where(column_data == value)
             tmp_instance_number.append(tmp_indices[0].size)
-            tmp_percentages.append((tmp_indices[0].size / indices[0].size) * 100)
+            # tmp_percentages.append((tmp_indices[0].size / indices[0].size) * 100)
+            tmp_percentages.append((tmp_indices[0].size / my_df_dataset[column_name].eq(value).sum() * 100))
 
         print("         Instance number: " + str(tmp_instance_number))
         print("         Percentages: " + str(tmp_percentages))
@@ -69,24 +63,22 @@ def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
         # Compute the number of bars
         X = np.arange(len(tmp_percentages)) * 2
 
-        plt.bar((X + counter-(len(class_id)/10)) + counter*my_width + (my_width/2), tmp_percentages, width=my_width, alpha=0.7,
-                label=data_label, edgecolor="k", color=color_list[col_counter])
+        plt.bar((X + counter - (len(class_id) / 10)) + counter * my_width + (my_width / 2), tmp_percentages,
+                width=my_width, alpha=0.7, label=data_label, edgecolor="k", color=color_list[col_counter])
         counter = counter + 0.2
-        col_counter = col_counter + 1   # switch to next color for next class id
+        col_counter = col_counter + 1  # switch to next color for next class id
 
     plt.title(target_variable + " by " + column_name, fontsize=10)
-    plt.xticks(np.arange(feature_value.size)*2, feature_value, rotation=90)
+    plt.xticks(np.arange(feature_value.size) * 2, feature_value, rotation=45, ha="right", rotation_mode="anchor")
     plt.ylabel("Percentage of people")
     plt.xlabel(column_name)
-    plt.legend(class_id, #reorder legend labels
-        bbox_to_anchor=(1.04, 1), loc="upper left", prop = {"size" : 6})    # position and resize legend
+    plt.legend(class_id, bbox_to_anchor=(1.04, 1), loc="upper left", prop={"size": 6})  # position and resize legend
     plt.tight_layout()
     plt.figure(figsize=(35, 25))
     plt.show()
 
 
 def filter_column_for_scatter_plots(my_df_dataset):
-
     column_list = my_df_dataset.columns
     new_column_list = []
 
@@ -103,7 +95,6 @@ def filter_column_for_scatter_plots(my_df_dataset):
 
 
 def plot_scatter_graphics(column_name_1, column_name_2, class_id, my_df_dataset, target_variable):
-
     # Initialization
     column_names = [column_name_1, column_name_2]
     color_list = ["r", "g", "k", "b", "y", "m", "c"]
@@ -117,12 +108,10 @@ def plot_scatter_graphics(column_name_1, column_name_2, class_id, my_df_dataset,
         indices = np.where(my_df_dataset[target_variable] == id_value)[0]
 
         for column_name in column_names:
-
             column_data.append(my_df_dataset[column_name].values[indices])
 
         data_label = target_variable + " " + str(id_value)
         data_labels.append(data_label)
-
 
         plt.scatter(column_data[0], column_data[1], marker=marker_list[counter], c=color_list[counter],
                     alpha=0.5, edgecolors="k", label=data_label)
@@ -136,38 +125,14 @@ def plot_scatter_graphics(column_name_1, column_name_2, class_id, my_df_dataset,
     plt.show()
 
 
-
-
-
-
-
-
-
-
-
-
-
 def plot_all_scatter_graphics(class_id, my_df_dataset, target_variable):
-
     attribute_list = filter_column_for_scatter_plots(my_df_dataset)
 
     for i in range(len(attribute_list)):
 
         for j in range(len(attribute_list)):
 
-            if i<j:
-
+            if i < j:
                 plot_scatter_graphics(attribute_list[i], attribute_list[j], class_id, my_df_dataset, target_variable)
 
     return attribute_list
-
-
-
-
-
-
-
-
-
-
-

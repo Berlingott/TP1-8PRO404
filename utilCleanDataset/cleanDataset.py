@@ -56,9 +56,7 @@ def get_varaible_information(my_df_dataset):
             print("         there are NaN value: " + str(nan_presence))
 
 
-def get_target_variable_information(my_df_dataset, target_variable):
-
-    class_id = np.unique(my_df_dataset[target_variable])
+def get_target_variable_information(my_df_dataset, target_variable, class_id):
 
     print("\nInformation on the '" + target_variable + "' column:")
 

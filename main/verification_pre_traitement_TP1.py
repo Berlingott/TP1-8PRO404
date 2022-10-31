@@ -4,7 +4,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
-def DataCleaning():
+
+
+def data_cleaning():
     # read salaries data
     salaries = pd.read_csv("salaries.csv", header=0)
     # look at first rows
@@ -83,6 +85,7 @@ def DataCleaning():
     countries = countries.rename(columns={"company_location": "employee_residence", "company_continent": "employee_continent"}) # rename to uniformize datasets
     mods = pd.merge(mods, countries, on="employee_residence", how="inner")
 
+
     # # Filtre de données aberrantes.
     # filter_max = (mods.salary_in_usd.mean() + 3*mods.salary_in_usd.std())
     # for x in mods.index:
@@ -123,12 +126,16 @@ def DataCleaning():
     # set values used as labels
     values = ["[0,50 000[", "[50 000, 100 000[", "[100 000, 150 000[", "[150 000, 200 000[", "[200 000, 250 000[", "[250 000, 300 000[", ">300 000"]
     mods["salary_in_usd"] = np.select(conditions, values)
+
+    # change experience_level to be ordinal
+    mods["experience_level"] = mods['experience_level'].map({"EN": "1-EN", "MI": "2-MI", "SE": "3-SE", "EX": "4-EX"})
+
     # Save modified data as mods.csv
     mods.to_csv("mods.csv", index=False)
     return values
 
 # function to plot box plots for each column 
-def dataVisualisation(my_df_dataset, target_variable):
+def data_visualisation(my_df_dataset, target_variable):
     # Get the list of columns
     column_list = my_df_dataset.columns
 
