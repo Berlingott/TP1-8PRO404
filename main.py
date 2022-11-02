@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 
 from utilCleanDataset import cleanDataset
@@ -6,12 +5,11 @@ from utilPlotGraphics import plotGraphics
 from utilStatistics import performStatistics
 from main import verification_pre_traitement_TP1
 
-
 ########################################################################################################################
 #                                               USER PARAMETERS                                                        #
 ########################################################################################################################
 
-#Call the data cleaning method
+# Call the data cleaning method
 class_id = verification_pre_traitement_TP1.data_cleaning()
 
 # Define the pathname of the datset
@@ -66,14 +64,8 @@ attribute_list = plotGraphics.plot_all_scatter_graphics(class_id, my_df_dataset,
 # Compute the matrix of correlations between each numerical variable
 performStatistics.correlation_person_matrix(attribute_list, my_df_dataset)
 
-# Perform the ANOVA test for all variable that can be plot with box plot
+# Perform the ANOVA test for all variable that can be plotted with box plot
 performStatistics.anova_for_all(class_id, my_df_dataset, target_variable)
 
-# Perform the independant test for all variable that can be plot with bar plot
+# Perform the independent test for all variable that can be plotted with bar plot
 performStatistics.independent_test_for_all(class_id, my_df_dataset, target_variable)
-
-
-
-
-
-
