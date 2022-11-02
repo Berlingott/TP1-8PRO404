@@ -75,7 +75,7 @@ def anova_for_all(class_id, my_df_dataset, target_variable):
                         fval, pval = f_oneway(column_data_list[0], column_data_list[1], column_data_list[2],
                                               column_data_list[4])
 
-                    print("     - The null hypothesis is that there is any difference in the '" + column_name +
+                    print("     - The null hypothesis is that there is no difference in the '" + column_name +
                           "' variable between group of people according to '" + target_variable + ".")
                     print("     - pvalue: ", pval)
 
@@ -108,7 +108,7 @@ def anova_for_all(class_id, my_df_dataset, target_variable):
                         fval, pval = kruskal(column_data_list[0], column_data_list[1], column_data_list[2],
                                              column_data_list[4])
 
-                    print("     - The null hypothesis is that there is any difference in the '" + column_name +
+                    print("     - The null hypothesis is that there is no difference in the '" + column_name +
                           "' variable between group of people according to '" + target_variable + ".")
                     print("     - pvalue: ", pval)
 
@@ -177,6 +177,12 @@ def independent_test_for_all(class_id, my_df_dataset, target_variable):
                 print(np.array(obs))
                 print("     Expected distribution")
                 print(results[3])
+                print("     Observed value - expected value")
+                diff = np.subtract(np.array(obs), results[3])
+                colnames = pd.unique(my_df_dataset[column_name])
+                indexes = np.unique(my_df_dataset[target_variable])
+                df = pd.DataFrame(diff, columns=colnames, index=indexes)
+                print(df)
 
 
 def correlation_person_matrix(attribute_list, my_df_dataset):
