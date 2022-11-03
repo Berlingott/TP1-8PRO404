@@ -1,4 +1,3 @@
-# import modules
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -80,11 +79,12 @@ def data_cleaning():
     # keep only relevant columns "C:\\Users\\vince\\PycharmProjects\\TP1-8PRO404\\salaries.csv"
     countries = countries[["alpha-2", "region"]]
     # add new column with region
-    countries = countries.rename(columns={"alpha-2": "company_location", "region": "company_continent"})    # rename to uniformize datasets
+    countries = countries.rename(
+        columns={"alpha-2": "company_location", "region": "company_continent"})  # rename to uniformize datasets
     mods = pd.merge(mods, countries, on="company_location", how="inner")
-    countries = countries.rename(columns={"company_location": "employee_residence", "company_continent": "employee_continent"}) # rename to uniformize datasets
+    countries = countries.rename(columns={"company_location": "employee_residence",
+                                          "company_continent": "employee_continent"})  # rename to uniformize datasets
     mods = pd.merge(mods, countries, on="employee_residence", how="inner")
-
 
     # # Filtre de données aberrantes.
     # filter_max = (mods.salary_in_usd.mean() + 3*mods.salary_in_usd.std())
@@ -124,7 +124,8 @@ def data_cleaning():
         (mods['salary_in_usd'] >= 300000)
     ]
     # set values used as labels
-    values = ["[0,50 000[", "[50 000, 100 000[", "[100 000, 150 000[", "[150 000, 200 000[", "[200 000, 250 000[", "[250 000, 300 000[", ">300 000"]
+    values = ["[0,50 000[", "[50 000, 100 000[", "[100 000, 150 000[", "[150 000, 200 000[", "[200 000, 250 000[",
+              "[250 000, 300 000[", ">300 000"]
     mods["salary_in_usd"] = np.select(conditions, values)
 
     # change experience_level to be ordinal
@@ -134,7 +135,8 @@ def data_cleaning():
     mods.to_csv("mods.csv", index=False)
     return values
 
-# function to plot box plots for each column 
+
+# Function to generate a boxplot for each column
 def data_visualisation(my_df_dataset, target_variable):
     # Get the list of columns
     column_list = my_df_dataset.columns
@@ -146,7 +148,8 @@ def data_visualisation(my_df_dataset, target_variable):
             column_data = my_df_dataset[column_name].values
 
             # set category order
-            categories_ordered = [">300 000", "[250 000, 300 000[", "[200 000, 250 000[", "[150 000, 200 000[", "[100 000, 150 000[", "[50 000, 100 000[", "[0,50 000["]
+            categories_ordered = [">300 000", "[250 000, 300 000[", "[200 000, 250 000[", "[150 000, 200 000[",
+                                  "[100 000, 150 000[", "[50 000, 100 000[", "[0,50 000["]
             # Get a box plot comparing target variable and every columns
             fig = px.box(my_df_dataset, y=target_variable, x=column_data,
                          category_orders={target_variable: categories_ordered}
@@ -154,4 +157,4 @@ def data_visualisation(my_df_dataset, target_variable):
                 yaxis_title="Salary in US$", xaxis_title=column_name,
                 title="Distribution of " + target_variable + " by " + column_name)
             fig.update_traces(orientation='v')  # set boxes orientation to target_variable(column_data)
-            fig.write_image(column_name + ".svg")   # save as scalable vector graphics
+            fig.write_image(column_name + ".svg")  # save as scalable vector graphics

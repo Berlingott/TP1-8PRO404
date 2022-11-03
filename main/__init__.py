@@ -1,12 +1,11 @@
-import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import *
 from scipy import stats
 
-def MakeBoxPlotWithHue(x, y, hue, title, salaries):
-    fig, ax = plt.subplots(figsize=(15, 7))
+
+def make_boxplot_with_hue(x, y, hue, title, salaries):
+    plt.subplots(figsize=(15, 7))
     plt.title(title)
     sns.boxplot(x=salaries[x],
                 y=salaries[y],
@@ -14,103 +13,109 @@ def MakeBoxPlotWithHue(x, y, hue, title, salaries):
     plt.show()
 
 
-def MakeBoxPlotWithoutHue(x, y, title, salaries):
-    fig, ax = plt.subplots(figsize=(15, 7))
+def make_boxplot_without_hue(x, y, title, salaries):
+    plt.subplots(figsize=(15, 7))
     plt.title(title)
     sns.boxplot(x=salaries[x],
                 y=salaries[y])
     plt.show()
 
 
-def MakeBarWithoutHue(x, y, title, salaries):
-    fig, ax = plt.subplots(figsize=(15, 7))
+def make_bar_without_hue(x, y, title, salaries):
+    plt.subplots(figsize=(15, 7))
     plt.title(title)
     sns.barplot(x=salaries[x],
                 y=salaries[y])
     plt.show()
 
 
-def MakeBarWithHue(x, y, hue, title, salaries):
-    fig, ax = plt.subplots(figsize=(15, 7))
+def make_bar_with_hue(x, y, hue, title, salaries):
+    plt.subplots(figsize=(15, 7))
     plt.title(title)
     sns.barplot(x=salaries[x],
                 y=salaries[y],
                 hue=salaries[hue])
     plt.show()
 
-def makefacetboxplot(x, y, title, NA, EU, Asia):
-    fig, ax = plt.subplots(figsize=(15, 7))
+
+def make_facet_boxplot(x, y, title, north_america, europe, asia):
+    plt.subplots(figsize=(15, 7))
 
     plt.subplot(1, 3, 1)
-    sns.boxplot(x=NA[x],
-                y=NA[y])
+    sns.boxplot(x=north_america[x],
+                y=north_america[y])
     plt.title("North America")
     plt.xticks(rotation=90)
 
     plt.subplot(1, 3, 2)
-    sns.boxplot(x=EU[x],
-                y=EU[y])
+    sns.boxplot(x=europe[x],
+                y=europe[y])
     plt.title("Europe")
     plt.xticks(rotation=90)
 
     plt.subplot(1, 3, 3)
-    sns.boxplot(x=Asia[x],
-                y=Asia[y])
+    sns.boxplot(x=asia[x],
+                y=asia[y])
     plt.title("Asia")
     plt.xticks(rotation=90)
 
     plt.suptitle(title)
     plt.show()
 
-def piegraph(colonne, title, salaries):
-    fig, ax = plt.subplots(figsize=(10, 10))
+
+def pie_graph(column, title, salaries):
+    plt.subplots(figsize=(10, 10))
     plt.title(title)
-    y = salaries[colonne].value_counts(dropna=False)
-    mylabels = salaries[colonne].value_counts()
-    plt.pie(y, labels=mylabels)
-    plt.legend(salaries[colonne].value_counts().index, loc='upper left')
+    y = salaries[column].value_counts(dropna=False)
+    my_labels = salaries[column].value_counts()
+    plt.pie(y, labels=my_labels)
+    plt.legend(salaries[column].value_counts().index, loc='upper left')
     plt.show()
 
-# decris la table selon le salaire
-def MakeTableDescribeWithSalary(toDescribe,data):
-    print(data.groupby(toDescribe)[['salary_in_usd']].describe(include='all'))
 
-def MakeKhi2Calcul(x, y, data):
-    X = x
-    Y = y
-    cont = data[[X, Y]].pivot_table(index=X, columns=Y, aggfunc=len).fillna(0).copy().astype(int)
+# Describes the table according to the salary
+def make_table_describe_with_salary(to_describe, data):
+    print(data.groupby(to_describe)[['salary_in_usd']].describe(include='all'))
+
+
+def calculate_khi2(x, y, data):
+    cont = data[[x, y]].pivot_table(index=x, columns=y, aggfunc=len).fillna(0).copy().astype(int)
     st_chi2, st_p, st_dof, st_exp = chi2_contingency(cont, correction=False)
-    print("% d'assossiation selon le calcul de Khi2 :", st_p, '%')
+    print("Pourcentage d'association selon le calcul de χ² : ", st_p, '%')
 
-def MakeCorrtestWithSpearmanrBetweenTwoInt(value1, value2, data, title):
+
+def make_corr_test_with_spearman_between_two_int(value1, value2, data, title):
     plt.scatter(data[value1], data[value2])
     plt.title(title)
     plt.show()
-    print("Légende pour le table de corrélation entre ", value1, " et ", value2, stats.pearsonr(data[value1], data[value2]))
+    print("Légende pour la table de corrélation entre ", value1, " et ", value2,
+          stats.pearsonr(data[value1], data[value2]))
 
-# pour faire corrélation entre un champ de string et un champ de int
-def MakeCorrtestWithSpearmanrWithOneStringAndOneInt(valuestring, valueInt, data, title):
-    cpt = 0
+
+# To correlate between a string field and an integer field
+def make_corr_test_with_spearman_with_one_string_and_one_int(value_string, value_int, data, title):
+    counter = 0
     position = 0
-    arrayLegend = []
-    arrayVerif = []
-    shownArray = data[valuestring].values
+    array_legend = []
+    array_verification = []
+    shown_array = data[value_string].values
     verif = 1
-    for val in shownArray:
-        for val2 in arrayVerif:
-            if val2[0] == val:
-                shownArray[position] = val2[1]
+    for value in shown_array:
+        for second_value in array_verification:
+            if second_value[0] == value:
+                shown_array[position] = second_value[1]
                 verif = 0
         if verif == 1:
-            arrayLegend.append(val+" : "+str(cpt))
-            arrayVerif.append([val, cpt])
-            shownArray[position] = cpt
-            cpt = cpt + 1
+            array_legend.append(value + " : " + str(counter))
+            array_verification.append([value, counter])
+            shown_array[position] = counter
+            counter = counter + 1
         verif = 1
         position = position + 1
-    plt.scatter(shownArray, data[valueInt])
-    print("Légende pour le table de corrélation entre ", valuestring, " et ", valueInt, arrayLegend)
-    plt.xticks(range(shownArray.min(), shownArray.max()+1))
+    plt.scatter(shown_array, data[value_int])
+    print("Légende pour la table de corrélation entre ", value_string, " et ", value_int, array_legend)
+    plt.xticks(range(shown_array.min(), shown_array.max() + 1))
     plt.title(title)
     plt.show()
-    print("Légende pour le table de corrélation entre ", valuestring, " et ", valueInt, stats.pearsonr(shownArray, data[valueInt]))
+    print("Légende pour la table de corrélation entre ", value_string, " et ", value_int,
+          stats.pearsonr(shown_array, data[value_int]))

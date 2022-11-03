@@ -29,5 +29,5 @@ print()
 #MakeKhi2Calcul('job_category', 'salary_in_usd', salaries)
 data = salaries["salary_in_usd"]
 print(shapiro(data))  #ShapiroResult(statistic=0.980989933013916, pvalue=6.602242641484679e-10)
-MakeCorrtestWithSpearmanrBetweenTwoInt('remote_ratio', 'salary_in_usd', salaries, "Correlation Test")
-MakeCorrtestWithSpearmanrWithOneStringAndOneInt('job_category', 'salary_in_usd', salaries, "Correlation Test")
+make_corr_test_with_spearman_between_two_int('remote_ratio', 'salary_in_usd', salaries, "Correlation Test")
+make_corr_test_with_spearman_with_one_string_and_one_int('job_category', 'salary_in_usd', salaries, "Correlation Test")
