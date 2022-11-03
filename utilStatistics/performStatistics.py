@@ -3,8 +3,8 @@ import pandas as pd
 
 from scipy.stats import shapiro, levene, f_oneway, kruskal, chi2_contingency, pearsonr
 
-def anova_for_all(class_id, my_df_dataset, target_variable):
 
+def anova_for_all(class_id, my_df_dataset, target_variable):
     # Get the list of columns
     column_list = my_df_dataset.columns
 
@@ -35,51 +35,51 @@ def anova_for_all(class_id, my_df_dataset, target_variable):
 
                 for j in range(len(class_id)):
 
-                    if(len(column_data_list[j]) > 3):
+                    if len(column_data_list[j]) > 3:
                         # Perform the shapiro test
-                        stat, pval = shapiro(column_data_list[j])
+                        stat, p_value = shapiro(column_data_list[j])
 
-                        if pval > 0.05:
+                        if p_value > 0.05:
                             normality_count = normality_count + 1
 
                 # Test of homogeneity of variances
                 if len(class_id) == 2:
 
-                    fval, pval = levene(column_data_list[0], column_data_list[1])
+                    f_value, p_value = levene(column_data_list[0], column_data_list[1])
 
                 elif len(class_id) == 3:
 
-                    fval, pval = levene(column_data_list[0], column_data_list[1], column_data_list[2])
+                    f_value, p_value = levene(column_data_list[0], column_data_list[1], column_data_list[2])
 
                 elif len(class_id) == 4:
 
-                    fval, pval = levene(column_data_list[0], column_data_list[1], column_data_list[2],
-                                        column_data_list[3])
+                    f_value, p_value = levene(column_data_list[0], column_data_list[1], column_data_list[2],
+                                              column_data_list[3])
 
                 # Test of ANOVA
-                if (normality_count == len(class_id)) and (pval > 0.05):
+                if (normality_count == len(class_id)) and (p_value > 0.05):
 
                     print("-    normality count: " + str(normality_count))
-                    print("-    pval (homogeneity of variances): " + str(pval))
+                    print("-    p_value (homogeneity of variances): " + str(p_value))
 
                     if len(class_id) == 2:
 
-                        fval, pval = f_oneway(column_data_list[0], column_data_list[1])
+                        f_value, p_value = f_oneway(column_data_list[0], column_data_list[1])
 
                     elif len(class_id) == 3:
 
-                        fval, pval = f_oneway(column_data_list[0], column_data_list[1], column_data_list[2])
+                        f_value, p_value = f_oneway(column_data_list[0], column_data_list[1], column_data_list[2])
 
                     elif len(class_id) == 4:
 
-                        fval, pval = f_oneway(column_data_list[0], column_data_list[1], column_data_list[2],
-                                              column_data_list[4])
+                        f_value, p_value = f_oneway(column_data_list[0], column_data_list[1], column_data_list[2],
+                                                    column_data_list[4])
 
                     print("     - The null hypothesis is that there is no difference in the '" + column_name +
                           "' variable between group of people according to '" + target_variable + ".")
-                    print("     - pvalue: ", pval)
+                    print("     - pvalue: ", p_value)
 
-                    if pval < 0.05:
+                    if p_value < 0.05:
 
                         print("     - we reject the null hypothesis")
 
@@ -90,29 +90,29 @@ def anova_for_all(class_id, my_df_dataset, target_variable):
                 else:
 
                     print("     - normality count: " + str(normality_count))
-                    print("     - pval (homogeneity of variances): " + str(pval))
+                    print("     - p_value (homogeneity of variances): " + str(p_value))
                     print("     - The assumptions are not satisfied")
 
                     print(" We proceed to a non-parametric version of ANOVA : Kruskal-Wallis H-test")
 
                     if len(class_id) == 2:
 
-                        fval, pval = kruskal(column_data_list[0], column_data_list[1])
+                        f_value, p_value = kruskal(column_data_list[0], column_data_list[1])
 
                     elif len(class_id) == 3:
 
-                        fval, pval = kruskal(column_data_list[0], column_data_list[1], column_data_list[2])
+                        f_value, p_value = kruskal(column_data_list[0], column_data_list[1], column_data_list[2])
 
                     elif len(class_id) == 4:
 
-                        fval, pval = kruskal(column_data_list[0], column_data_list[1], column_data_list[2],
-                                             column_data_list[4])
+                        f_value, p_value = kruskal(column_data_list[0], column_data_list[1], column_data_list[2],
+                                                   column_data_list[4])
 
                     print("     - The null hypothesis is that there is no difference in the '" + column_name +
                           "' variable between group of people according to '" + target_variable + ".")
-                    print("     - pvalue: ", pval)
+                    print("     - p_value: ", p_value)
 
-                    if pval < 0.05:
+                    if p_value < 0.05:
 
                         print("     - we reject the null hypothesis")
 
@@ -122,11 +122,10 @@ def anova_for_all(class_id, my_df_dataset, target_variable):
 
 
 def independent_test_for_all(class_id, my_df_dataset, target_variable):
-
     # Get the list of columns
-    column_list = my_df_dataset.columns
+    columns = my_df_dataset.columns
 
-    for column_name in column_list:
+    for column_name in columns:
 
         if column_name != target_variable:
 
@@ -154,7 +153,6 @@ def independent_test_for_all(class_id, my_df_dataset, target_variable):
                     tmp_obs = []
 
                     for value in column_value:
-
                         indices = np.where(tmp_column_data == value)[0]
                         tmp_obs.append(indices.size)
 
@@ -162,7 +160,7 @@ def independent_test_for_all(class_id, my_df_dataset, target_variable):
 
                 results = chi2_contingency(np.array(obs))
 
-                print("     The chi2 is:")
+                print("     The χ² is:")
                 print("     - " + str(results[0]) + " with a p-value of " + str(results[1]))
 
                 if results[1] < 0.05:
@@ -179,63 +177,42 @@ def independent_test_for_all(class_id, my_df_dataset, target_variable):
                 print(results[3])
                 print("     Observed value - expected value")
                 diff = np.subtract(np.array(obs), results[3])
-                colnames = pd.unique(my_df_dataset[column_name])
-                indexes = np.unique(my_df_dataset[target_variable])
-                df = pd.DataFrame(diff, columns=colnames, index=indexes)
+                column_names = pd.unique(my_df_dataset[column_name])
+                indices = np.unique(my_df_dataset[target_variable])
+                df = pd.DataFrame(diff, columns=column_names, index=indices)
                 print(df)
 
 
 def correlation_person_matrix(attribute_list, my_df_dataset):
-
     correlation_coefficient_matrix = np.zeros((len(attribute_list), len(attribute_list)))
-    pvalue_matrix = np.zeros((len(attribute_list), len(attribute_list)))
+    p_value_matrix = np.zeros((len(attribute_list), len(attribute_list)))
 
     for i in range(len(attribute_list)):
 
         for j in range(len(attribute_list)):
 
-            if i>=j:
-
+            if i >= j:
 
                 x = my_df_dataset[attribute_list[i]].values
                 y = my_df_dataset[attribute_list[j]].values
 
-                r1, pvalue = pearsonr(x, y)
+                r1, p_value = pearsonr(x, y)
 
                 if i == j:
-
                     correlation_coefficient_matrix[i, j] = r1
-                    pvalue_matrix[i, j] = pvalue
+                    p_value_matrix[i, j] = p_value
 
-                if i>j:
+                if i > j:
                     correlation_coefficient_matrix[i, j] = r1
-                    pvalue_matrix[i, j] = pvalue
+                    p_value_matrix[i, j] = p_value
 
                     correlation_coefficient_matrix[j, i] = r1
-                    pvalue_matrix[j, i] = pvalue
+                    p_value_matrix[j, i] = p_value
 
     print("\n\n")
-    print("This is the correlation matrix between variables and its p_value matrix. The variable are: ")
+    print("This is the correlation matrix between variables and its p_value matrix. The variables are: ")
     print(attribute_list)
     print("\n")
     print(correlation_coefficient_matrix)
     print("\n")
-    print(pvalue_matrix)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    print(p_value_matrix)
