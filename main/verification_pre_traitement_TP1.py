@@ -112,6 +112,8 @@ def data_cleaning():
                     (mods.company_continent == "Europe") |
                     (mods.company_continent == "Asia")]
 
+    # Save a copy of the cleaned dataset with the full salaries 
+    mods.to_csv("cleaned_df_full_salaries.csv", index=False)
     # Group 'salary_in_usd' in intervals
     # Set conditions
     conditions = [
@@ -137,23 +139,20 @@ def data_cleaning():
 
 
 # Function to generate a boxplot for each column
-def data_visualisation(my_df_dataset, target_variable):
+def data_visualisation(my_full_dataset, salary_variable):
     # Get the list of columns
-    column_list = my_df_dataset.columns
+    column_list = my_full_dataset.columns
 
     for column_name in column_list:
-        if column_name != target_variable:
-            # Get the data of the column
-            column_data = my_df_dataset[column_name].values
 
-            # Set the category order
-            categories_ordered = [">300 000", "[250 000, 300 000[", "[200 000, 250 000[", "[150 000, 200 000[",
-                                  "[100 000, 150 000[", "[50 000, 100 000[", "[0,50 000["]
-            # Get a boxplot comparing target variable and every column
-            fig = px.box(my_df_dataset, y=target_variable, x=column_data,
-                         category_orders={target_variable: categories_ordered}
+        if column_name != salary_variable:
+            # Get the data of the column
+            column_data = my_full_dataset[column_name].values
+
+             # Get a box plot comparing target variable and every columns
+            fig = px.box(my_full_dataset, y=salary_variable, x=column_data
                          ).update_layout(
-                yaxis_title="Salary in USD", xaxis_title=column_name,
-                title="Distribution of " + target_variable + " by " + column_name)
+                yaxis_title="Salary in US$", xaxis_title=column_name,
+                title="Distribution of " + salary_variable + " by " + column_name)
             fig.update_traces(orientation='v')  # set boxes orientation to target_variable(column_data)
-            fig.write_image(column_name + ".svg")  # save as scalable vector graphics
+            fig.write_image(column_name + ".svg")   # save as scalable vector graphics
