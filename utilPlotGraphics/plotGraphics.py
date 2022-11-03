@@ -1,9 +1,8 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def plot_all_plots(class_id, my_df_dataset, target_variable):
+def generate_all_plots(class_id, my_df_dataset, target_variable):
     # Get the list of columns
     column_list = my_df_dataset.columns
 
@@ -18,18 +17,18 @@ def plot_all_plots(class_id, my_df_dataset, target_variable):
             feature_values = np.unique(column_data)
 
             if column_data.dtype == object or (column_data.dtype != object) & (feature_values.size <= 5):
-                plot_bar_plots(class_id, my_df_dataset, column_name, target_variable)
+                generate_bar_plots(class_id, my_df_dataset, column_name, target_variable)
 
 
-def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
+def generate_bar_plots(class_id, my_df_dataset, column_name, target_variable):
     my_width = 1 / len(class_id)
 
     counter = 0
-    # add distinctive colors
+    # Add distinctive colors
     col_counter = 0
     color_list = ["red", "lime", "aqua", "navy", "silver", "darkorange", "purple", "darkgreen", "yellow",
                   "fuchsia", "saddlebrown"]
-    feature_value = np.unique(my_df_dataset[column_name])
+    feature_values = np.unique(my_df_dataset[column_name])
 
     print("\n\n")
     print("Bar plot of " + column_name)
@@ -46,9 +45,9 @@ def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
         tmp_percentages = []
 
         print("     - class: " + str(id_value))
-        print("         " + str(feature_value))
+        print("         " + str(feature_values))
 
-        for value in feature_value:
+        for value in feature_values:
 
             tmp_indices = np.where(column_data == value)
             tmp_instance_number.append(tmp_indices[0].size)
@@ -61,15 +60,15 @@ def plot_bar_plots(class_id, my_df_dataset, column_name, target_variable):
         # Create the data label for the bar plot
         data_label = target_variable + ": " + str(id_value)
         # Compute the number of bars
-        X = np.arange(len(tmp_percentages)) * 2
+        x = np.arange(len(tmp_percentages)) * 2
 
-        plt.bar((X + counter - (len(class_id) / 10)) + counter * my_width + (my_width / 2), tmp_percentages,
+        plt.bar((x + counter - (len(class_id) / 10)) + counter * my_width + (my_width / 2), tmp_percentages,
                 width=my_width, alpha=0.7, label=data_label, edgecolor="k", color=color_list[col_counter])
         counter = counter + 0.2
         col_counter = col_counter + 1  # switch to next color for next class id
 
     plt.title(target_variable + " by " + column_name, fontsize=10)
-    plt.xticks(np.arange(feature_value.size) * 2, feature_value, rotation=45, ha="right", rotation_mode="anchor")
+    plt.xticks(np.arange(feature_values.size) * 2, feature_values, rotation=45, ha="right", rotation_mode="anchor")
     plt.ylabel("Percentage of people")
     plt.xlabel(column_name)
     plt.legend(class_id, bbox_to_anchor=(1.04, 1), loc="upper left", prop={"size": 6})  # position and resize legend

@@ -52,7 +52,7 @@ cleanDataset.get_target_variable_information(my_df_dataset, target_variable, cla
 ########################################################################################################################
 
 # Plot all graphics
-plotGraphics.plot_all_plots(class_id, my_df_dataset, target_variable)
+plotGraphics.generate_all_plots(class_id, my_df_dataset, target_variable)
 
 # Plot each variable vs. each variable for numerical values
 attribute_list = plotGraphics.plot_all_scatter_graphics(class_id, my_df_dataset, target_variable)
