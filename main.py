@@ -39,7 +39,7 @@ print(my_df_dataset.head())
 cleanDataset.compute_instance_and_variable_number(my_df_dataset)
 
 # Print information for each variable
-cleanDataset.get_varaible_information(my_df_dataset)
+cleanDataset.get_variable_information(my_df_dataset)
 
 # Print information on the target variable
 cleanDataset.get_target_variable_information(my_df_dataset, target_variable, class_id)

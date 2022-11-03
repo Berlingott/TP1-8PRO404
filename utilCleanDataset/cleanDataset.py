@@ -14,10 +14,8 @@ def compute_instance_and_variable_number(my_df_dataset):
     print("\nThere are " + str(data_shape[0]) + " instances and " + str(data_shape[1]) + " variables.")
 
 
-def get_varaible_information(my_df_dataset):
-
+def get_variable_information(my_df_dataset):
     for column_name in my_df_dataset.columns:
-
         print("- " + column_name)
 
         column_data = my_df_dataset[column_name].values
