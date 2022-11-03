@@ -96,24 +96,24 @@ def make_corr_test_with_spearman_between_two_int(value1, value2, data, title):
 def make_corr_test_with_spearman_with_one_string_and_one_int(value_string, value_int, data, title):
     counter = 0
     position = 0
-    array_legend = []
-    array_verification = []
+    legend_array = []
+    verification_array = []
     shown_array = data[value_string].values
     verif = 1
     for value in shown_array:
-        for second_value in array_verification:
+        for second_value in verification_array:
             if second_value[0] == value:
                 shown_array[position] = second_value[1]
                 verif = 0
         if verif == 1:
-            array_legend.append(value + " : " + str(counter))
-            array_verification.append([value, counter])
+            legend_array.append(value + " : " + str(counter))
+            verification_array.append([value, counter])
             shown_array[position] = counter
             counter = counter + 1
         verif = 1
         position = position + 1
     plt.scatter(shown_array, data[value_int])
-    print("Légende pour la table de corrélation entre ", value_string, " et ", value_int, array_legend)
+    print("Légende pour la table de corrélation entre ", value_string, " et ", value_int, legend_array)
     plt.xticks(range(shown_array.min(), shown_array.max() + 1))
     plt.title(title)
     plt.show()
