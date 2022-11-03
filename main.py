@@ -14,10 +14,10 @@ class_id = verification_pre_traitement_TP1.data_cleaning()
 
 # Define the pathname of the datset
 dataset_pathname = "mods.csv"
-
+second_dataset_pathname = "cleaned_df_full_salaries.csv"
 # Define the target variable
 target_variable = "salary_in_usd"
-
+salary_variable = "salary_in_usd"
 # Define the ratio of NaN
 max_NaN_ratio = 0.1
 
@@ -27,7 +27,7 @@ max_NaN_ratio = 0.1
 
 # Load the data
 my_df_dataset = pd.read_csv(dataset_pathname, sep=",", header=0)
-
+my_full_dataset = pd.read_csv(second_dataset_pathname, sep=",", header=0)
 # Print some instances
 print(my_df_dataset.head())
 
@@ -45,7 +45,7 @@ cleanDataset.get_variable_information(my_df_dataset)
 cleanDataset.get_target_variable_information(my_df_dataset, target_variable, class_id)
 
 # Print box plot for target_variable depending on column data
-# verification_pre_traitement_TP1.data_visualisation(my_df_dataset, target_variable)
+# verification_pre_traitement_TP1.data_visualisation(my_full_dataset, salary_variable)
 
 ########################################################################################################################
 #                                                    PLOT GRAPHICS                                                     #
