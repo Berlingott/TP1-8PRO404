@@ -149,10 +149,10 @@ def data_visualisation(my_full_dataset, salary_variable):
             # Get the data of the column
             column_data = my_full_dataset[column_name].values
 
-             # Get a box plot comparing target variable and every columns
+            # Get a boxplot comparing the target variable and every column
             fig = px.box(my_full_dataset, y=salary_variable, x=column_data
                          ).update_layout(
-                yaxis_title="Salary in US$", xaxis_title=column_name,
+                yaxis_title="Salary in USD", xaxis_title=column_name,
                 title="Distribution of " + salary_variable + " by " + column_name)
-            fig.update_traces(orientation='v')  # set boxes orientation to target_variable(column_data)
-            fig.write_image(column_name + ".svg")   # save as scalable vector graphics
+            fig.update_traces(orientation='v')  # Set boxes' orientation to target_variable(column_data)
+            fig.write_image(column_name + ".svg")  # Save as scalable vector graphics
