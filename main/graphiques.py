@@ -1,6 +1,3 @@
-# import modules
-import matplotlib.pyplot as plt
-
 from __init__ import *
 from description_données_TP1 import *
 
