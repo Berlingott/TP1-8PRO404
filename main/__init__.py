@@ -93,12 +93,12 @@ def make_corr_test_with_spearman_between_two_int(value1, value2, data, title):
 
 
 # To correlate between a string field and an integer field
-def make_corr_test_with_spearman_with_one_string_and_one_int(value_string, value_int, data, title):
+def make_corr_test_with_spearman_with_one_string_and_one_int(string_value, int_value, data, title):
     counter = 0
     position = 0
     legend_array = []
     verification_array = []
-    shown_array = data[value_string].values
+    shown_array = data[string_value].values
     verification = 1
     for value in shown_array:
         for second_value in verification_array:
@@ -112,10 +112,10 @@ def make_corr_test_with_spearman_with_one_string_and_one_int(value_string, value
             counter = counter + 1
         verification = 1
         position = position + 1
-    plt.scatter(shown_array, data[value_int])
-    print("Légende pour la table de corrélation entre ", value_string, " et ", value_int, legend_array)
+    plt.scatter(shown_array, data[int_value])
+    print("Légende pour la table de corrélation entre ", string_value, " et ", int_value, legend_array)
     plt.xticks(range(shown_array.min(), shown_array.max() + 1))
     plt.title(title)
     plt.show()
-    print("Légende pour la table de corrélation entre ", value_string, " et ", value_int,
-          stats.pearsonr(shown_array, data[value_int]))
+    print("Légende pour la table de corrélation entre ", string_value, " et ", int_value,
+          stats.pearsonr(shown_array, data[int_value]))
