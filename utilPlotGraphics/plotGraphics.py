@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 
 def generate_all_plots(class_id, my_df_dataset, target_variable):
@@ -135,3 +136,25 @@ def plot_all_scatter_graphics(class_id, my_df_dataset, target_variable):
                 plot_scatter_graphics(attribute_list[i], attribute_list[j], class_id, my_df_dataset, target_variable)
 
     return attribute_list
+
+
+# Function to generate a boxplot for each column
+def data_visualisation(my_full_dataset, salary_variable):
+    # Get the list of columns
+    column_list = my_full_dataset.columns
+
+    for column_name in column_list:
+
+        if column_name != salary_variable:
+            # Get the data of the column
+            column_data = my_full_dataset[column_name].values
+
+            # Get a boxplot comparing the target variable and every column
+            fig = px.box(my_full_dataset, y=salary_variable, x=column_data
+                         ).update_layout(
+                yaxis_title="Salary in USD", xaxis_title=column_name,
+                title="Distribution of " + salary_variable + " by " + column_name)
+            fig.update_traces(orientation='v')  # Set boxes' orientation to target_variable(column_data)
+            fig.show()
+            # fig.write_image(column_name + ".svg")  # Save as scalable vector graphics
+            # fig.write_html(column_name + ".html")  # Save as interactive graphics

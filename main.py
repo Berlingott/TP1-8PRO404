@@ -1,25 +1,19 @@
 import pandas as pd
-
-from utilCleanDataset import cleanDataset
+from utilExploreDataset import exploreDataset
 from utilPlotGraphics import plotGraphics
 from utilStatistics import performStatistics
-from main import verification_pre_traitement_TP1
+from utilCleanDataset import cleanDataset
 
 ########################################################################################################################
 #                                               USER PARAMETERS                                                        #
 ########################################################################################################################
 
-
-
-# Call the data cleaning method
-class_id = verification_pre_traitement_TP1.data_cleaning()
-
 # Define the pathname of the datset
-dataset_pathname = "mods.csv"
-second_dataset_pathname = "cleaned_df_full_salaries.csv"
+dataset_pathname = "salaries.csv"
+
 # Define the target variable
 target_variable = "salary_in_usd"
-salary_variable = "salary_in_usd"
+
 # Define the ratio of NaN
 max_NaN_ratio = 0.1
 
@@ -29,32 +23,61 @@ max_NaN_ratio = 0.1
 
 # Load the data
 my_df_dataset = pd.read_csv(dataset_pathname, sep=",", header=0)
-my_full_dataset = pd.read_csv(second_dataset_pathname, sep=",", header=0)
+
+print()
+print("----------------- ORIGINAL DATA -------------------------")
+print()
+
+# to print all the columns de-comment next line
+# pd.set_option('display.max_columns', None)
+
 # Print some instances
 print(my_df_dataset.head())
+print(my_df_dataset.describe())
 
 ########################################################################################################################
 #                                            GET INFORMATION ON THE DATASET                                            #
 ########################################################################################################################
 
+# exploration of the dataset before cleaning
+
 # Print the shape information of the dataset
-cleanDataset.compute_instance_and_variable_number(my_df_dataset)
-
+exploreDataset.compute_instance_and_variable_number(my_df_dataset)
 # Print information for each variable
-cleanDataset.get_variable_information(my_df_dataset)
+exploreDataset.get_variable_information(my_df_dataset)
+# plot distribution for each variable
+exploreDataset.makes_box_plot(my_df_dataset)
+exploreDataset.plot_distribution_for_each_variable(my_df_dataset)
 
-# Print information on the target variable
-cleanDataset.get_target_variable_information(my_df_dataset, target_variable, class_id)
+# de-comment to explore de details of the extremes values of the target variable
+# verification_pre_traitement_TP1.explore_extreme_values(my_df_dataset, target_variable, 20000)
 
-# Print box plot for target_variable depending on column data
-# verification_pre_traitement_TP1.data_visualisation(my_full_dataset, salary_variable)
-verification_pre_traitement_TP1.categorical_exploration(my_df_dataset)
-verification_pre_traitement_TP1.makes_box_plot(my_df_dataset)
-verification_pre_traitement_TP1.plot_distribution_for_each_variable(my_df_dataset)
+# cleaning the dataset
+my_df_dataset, my_full_dataset = cleanDataset.data_cleaning(my_df_dataset)
+class_id = cleanDataset.salary_categorical_values
+
+print()
+print("----------------- CLEANED DATA -------------------------")
+
+# Print the shape information of the cleaned dataset
+exploreDataset.compute_instance_and_variable_number(my_df_dataset)
+
+# Print information for each cleaned variable
+exploreDataset.get_variable_information(my_df_dataset)
+
+# Print information on the cleaned target variable
+exploreDataset.get_target_variable_information(my_df_dataset, target_variable, class_id)
+
+# plot distribution for each variable
+exploreDataset.makes_box_plot(my_df_dataset)
+exploreDataset.plot_distribution_for_each_variable(my_df_dataset)
 
 ########################################################################################################################
 #                                                    PLOT GRAPHICS                                                     #
 ########################################################################################################################
+
+# Print box plot for target_variable depending on column data
+plotGraphics.data_visualisation(my_full_dataset, target_variable)
 
 # Plot all graphics
 plotGraphics.generate_all_plots(class_id, my_df_dataset, target_variable)
@@ -67,9 +90,11 @@ attribute_list = plotGraphics.plot_all_scatter_graphics(class_id, my_df_dataset,
 ########################################################################################################################
 
 # Compute the matrix of correlations between each numerical variable
-performStatistics.correlation_person_matrix(attribute_list, my_df_dataset)
+# because we have no numerical value in the cleaned dataset, this fonction is silent
+# performStatistics.correlation_person_matrix(attribute_list, my_df_dataset)
 
 # Perform the ANOVA test for all variable that can be plotted with box plot
+# For this project, this function will print nothing because of absence of numeric variables
 performStatistics.anova_for_all(class_id, my_df_dataset, target_variable)
 
 # Perform the independent test for all variable that can be plotted with bar plot

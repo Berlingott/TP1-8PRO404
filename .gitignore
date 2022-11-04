@@ -626,4 +626,3 @@ https://www.toptal.com/developers/gitignore/api/windows,macos,linux,pycharm,visu
 
 # fichiers générés
 *.xlsx
-cleaned_df_full_salaries.csv
