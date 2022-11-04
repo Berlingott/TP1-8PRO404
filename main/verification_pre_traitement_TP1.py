@@ -118,6 +118,9 @@ def data_cleaning():
     mods = mods.loc[(mods.company_continent == "Americas") |
                     (mods.company_continent == "Europe") |
                     (mods.company_continent == "Asia")]
+    
+    # Change 'experience_level' to be ordinal
+    mods["experience_level"] = mods['experience_level'].map({"EN": "1-EN", "MI": "2-MI", "SE": "3-SE", "EX": "4-EX"})
 
     # Save a copy of the cleaned dataset with the full salaries 
     mods.to_csv("cleaned_df_full_salaries.csv", index=False)
@@ -137,9 +140,7 @@ def data_cleaning():
               "[250 000, 300 000[", ">300 000"]
     mods["salary_in_usd"] = np.select(conditions, values)
 
-    # Change 'experience_level' to be ordinal
-    mods["experience_level"] = mods['experience_level'].map({"EN": "1-EN", "MI": "2-MI", "SE": "3-SE", "EX": "4-EX"})
-
+    
     # Save modified data as mods.csv
     mods.to_csv("mods.csv", index=False)
     return values
@@ -161,6 +162,7 @@ def data_visualisation(my_full_dataset, salary_variable):
                          ).update_layout(
                 yaxis_title="Salary in USD", xaxis_title=column_name,
                 title="Distribution of " + salary_variable + " by " + column_name)
+            fig.update_xaxes(categoryorder='category ascending') # sort alphabetically
             fig.update_traces(orientation='v')  # Set boxes' orientation to target_variable(column_data)
             fig.write_image(column_name + ".svg")  # Save as scalable vector graphics
 
