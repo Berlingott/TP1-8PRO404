@@ -1,11 +1,18 @@
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 def data_cleaning():
     # Read the salaries' data
     salaries = pd.read_csv("salaries.csv", header=0)
+
+    categorical_exploration(salaries)
+    makes_box_plot(salaries)
+    plot_distribution_for_each_variable(salaries)
+
     # Look at the first rows
     pd.set_option('display.max_columns', None)
     # Drop 'salary' and 'salary_currency'
@@ -156,3 +163,70 @@ def data_visualisation(my_full_dataset, salary_variable):
                 title="Distribution of " + salary_variable + " by " + column_name)
             fig.update_traces(orientation='v')  # Set boxes' orientation to target_variable(column_data)
             fig.write_image(column_name + ".svg")  # Save as scalable vector graphics
+
+
+def categorical_exploration(my_df_dataset):
+
+    column_list = my_df_dataset.columns
+
+    print("CATEGORICAL VARIABLES FREQUENCY")
+    for column_name in column_list:
+
+        column_data = my_df_dataset[column_name].values
+
+        if column_data.dtype == object or (column_data.dtype == np.int64 and np.unique(column_data).size < 5):
+            print(column_name)
+            print(my_df_dataset[column_name].value_counts(dropna=False))
+            print("number of categories for " + column_name + " = ", len(my_df_dataset[column_name].unique()))
+            print()
+
+
+def makes_box_plot(my_df_dataset):
+    column_list = my_df_dataset.columns
+    for column_name in column_list:
+
+        column_data = my_df_dataset[column_name].values
+
+        if column_data.dtype != object and ((column_data.dtype == np.int64 and np.unique(column_data).size > 5) or
+                                            column_data.dtype == np.float64):
+            sns.boxplot(data=my_df_dataset[column_name])
+            plt.ticklabel_format(style='plain', axis='y')
+            plt.title("Distribution of " + column_name)
+            plt.show()
+
+
+def plot_distribution_for_each_variable(my_df_dataset):
+    column_list = my_df_dataset.columns
+    for column_name in column_list:
+
+        column_data = my_df_dataset[column_name].values
+
+        if column_data.dtype == object or (column_data.dtype == np.int64 and np.unique(column_data).size < 5):
+
+            data = my_df_dataset[column_name].apply(str)
+            data_to_plot = data.value_counts()
+
+            plt.barh(width=data_to_plot.values, y=data_to_plot.index, data=data_to_plot)
+            plt.title("Effectives of " + column_name + " variable")
+            plt.xticks(rotation=45, ha="right", rotation_mode="anchor")
+            plt.yticks(data_to_plot.index)
+            plt.xlabel('Effectives')
+            plt.tight_layout()
+            plt.gca().invert_yaxis()
+
+            if len(data_to_plot.index) > 10:
+                plt.yticks(fontsize=4)
+            else:
+                for i, v in enumerate(data_to_plot.values):
+                    plt.text(v + 0.25, i, str(v), color='black', fontweight='bold')
+            plt.show()
+
+        if column_data.dtype != object and ((column_data.dtype == np.int64 and np.unique(column_data).size > 5) or
+                                            column_data.dtype == np.float64):
+            sns.histplot(my_df_dataset[column_name])
+            plt.title("Distribution of " + column_name + " variable")
+            plt.xticks(rotation=45, ha="right", rotation_mode="anchor")
+            plt.tight_layout()
+
+
+            plt.show()

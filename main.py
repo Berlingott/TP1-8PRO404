@@ -9,6 +9,8 @@ from main import verification_pre_traitement_TP1
 #                                               USER PARAMETERS                                                        #
 ########################################################################################################################
 
+
+
 # Call the data cleaning method
 class_id = verification_pre_traitement_TP1.data_cleaning()
 
@@ -46,6 +48,9 @@ cleanDataset.get_target_variable_information(my_df_dataset, target_variable, cla
 
 # Print box plot for target_variable depending on column data
 # verification_pre_traitement_TP1.data_visualisation(my_full_dataset, salary_variable)
+verification_pre_traitement_TP1.categorical_exploration(my_df_dataset)
+verification_pre_traitement_TP1.makes_box_plot(my_df_dataset)
+verification_pre_traitement_TP1.plot_distribution_for_each_variable(my_df_dataset)
 
 ########################################################################################################################
 #                                                    PLOT GRAPHICS                                                     #
